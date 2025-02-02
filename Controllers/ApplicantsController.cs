@@ -36,11 +36,9 @@ public class ApplicantsController : ControllerBase
     }
     private bool IsPdfFile(IFormFile file)
     {
-        // Check MIME type
         if (file.ContentType != "application/pdf")
             return false;
 
-        // Check file extension (optional, for additional validation)
         var allowedExtensions = new[] { ".pdf" };
         var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
         return allowedExtensions.Contains(fileExtension);

@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GermanInstitute;
+using Microsoft.EntityFrameworkCore;
 
 public class MyDbContext : DbContext
 {
     public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
     public DbSet<Applicant> Applicants { get; set; }
+    public DbSet<ContactMessage> ContactMessages { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
