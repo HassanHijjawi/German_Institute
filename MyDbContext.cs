@@ -7,6 +7,7 @@ public class MyDbContext : DbContext
 
     public DbSet<Applicant> Applicants { get; set; }
     public DbSet<ContactMessage> ContactMessages { get; set; }
+    public DbSet<AlumniPosts> AlumniPosts { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
