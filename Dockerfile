@@ -9,6 +9,8 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+# Set user to root to avoid permission issues
+USER root
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
