@@ -11,11 +11,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("Connection string is missing from environment variables.");
+}
+
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(
-        "server=localhost;port=3306;database=german_institute;uid=root;password=root",
-        new MySqlServerVersion(new Version(8, 0, 2))
+        connectionString,
+        ServerVersion.AutoDetect(connectionString) // Automatically detects MySQL version
     ));
+
 
 var corsPolicy = "cors-policy";
 builder.Services.AddCors(options =>
