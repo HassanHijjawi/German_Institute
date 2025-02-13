@@ -5,11 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
 
@@ -24,13 +22,14 @@ builder.Services.AddDbContext<MyDbContext>(options =>
         ServerVersion.AutoDetect(connectionString) // Automatically detects MySQL version
     ));
 
-
 var corsPolicy = "cors-policy";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(corsPolicy, builder =>
     {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
@@ -43,6 +42,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Apply CORS before authorization
+app.UseCors(corsPolicy);
 
 app.UseAuthorization();
 
