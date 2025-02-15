@@ -31,7 +31,7 @@ public class ApplicantsController : ControllerBase
         _context.Applicants.Add(applicant);
         await _context.SaveChangesAsync();
 
-        return Ok(new { message = "Applicant created successfully" });
+        return Ok(new { message = "Applicant created successfully" , Id = applicant.Id});
     }
     private bool IsPdfFile(IFormFile file)
     {
@@ -60,6 +60,8 @@ public class ApplicantsController : ControllerBase
         .Include(a => a.PassportScan)
             .Select(a => new ApplicantDto
             {
+
+                Id = a.Id,
                 FirstName = a.FirstName,
                 LastName = a.LastName,
                 Nationality = a.Nationality,

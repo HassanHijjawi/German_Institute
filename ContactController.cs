@@ -25,7 +25,9 @@ public class ContactController : ControllerBase
             Name = m.Name,
             Email = m.Email,
             Subject = m.Subject,
-            Message = m.Message
+            Message = m.Message,
+            Id = m.Id   
+
         }).ToList();
     }
 

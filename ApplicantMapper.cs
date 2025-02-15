@@ -34,6 +34,7 @@
     {
         return new ApplicantDto
         {
+            Id = entity.Id,
             FirstName = entity.FirstName,
             LastName = entity.LastName,
             Nationality = entity.Nationality,

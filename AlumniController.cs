@@ -40,7 +40,7 @@ public class AlumniController : ControllerBase
         _context.AlumniPosts.Add(alumni);
         await _context.SaveChangesAsync();
 
-        return Ok(new { message = "AlumniPosts created successfully" });
+        return Ok(new { message = "AlumniPosts created successfully" , Id = alumni.Id});
     }
 
     private bool IsImageFile(IFormFile file)
@@ -63,7 +63,8 @@ public class AlumniController : ControllerBase
                 Title = a.Title,
                 Description = a.Description,
                 Date = a.Date,
-                ImageUrl = $"/api/alumni/{a.Id}/image"
+                ImageUrl = $"/api/alumni/{a.Id}/image",
+                Id = a.Id
             })
             .ToListAsync();
 

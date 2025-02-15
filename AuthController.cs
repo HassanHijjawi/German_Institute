@@ -50,7 +50,7 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid email or password.");
 
         var token = GenerateJwtToken(existingUser);
-        return Ok(new { Token = token });
+        return Ok(new { Token = token , Id = existingUser.Id});
     }
 
     private string HashPassword(string password)
