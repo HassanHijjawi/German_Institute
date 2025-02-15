@@ -56,8 +56,7 @@ public class ApplicantsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<IActionResult>>> GetApplicants()
     {
-        var applicants = await _context.Applicants.Include(a => a.CV) 
-        .Include(a => a.PassportScan)
+        var applicants = await _context.Applicants 
             .Select(a => new ApplicantDto
             {
 
