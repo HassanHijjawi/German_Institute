@@ -56,7 +56,8 @@ public class ApplicantsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<IActionResult>>> GetApplicants()
     {
-        var applicants = await _context.Applicants 
+        var applicants = await _context.Applicants
+            .OrderByDescending(a => a.DateofApplication)
             .Select(a => new ApplicantDto
             {
 

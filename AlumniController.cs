@@ -34,13 +34,14 @@ public class AlumniController : ControllerBase
             Description = dto.Description,
             Date = dto.Date,
             ImageData = memoryStream.ToArray(),
-            ImageExtension = Path.GetExtension(dto.Image.FileName).ToLowerInvariant()
+            ImageExtension = Path.GetExtension(dto.Image.FileName).ToLowerInvariant(),
+            IsEventPost = dto.IsEventPost,
         };
 
         _context.AlumniPosts.Add(alumni);
         await _context.SaveChangesAsync();
 
-        return Ok(new { message = "AlumniPosts created successfully" , Id = alumni.Id});
+        return Ok(new { message = "AlumniPosts created successfully", Id = alumni.Id });
     }
 
     private bool IsImageFile(IFormFile file)
@@ -53,10 +54,11 @@ public class AlumniController : ControllerBase
         return allowedExtensions.Contains(fileExtension);
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<AlumniDto>>> GetAlumni()
+    [HttpGet("posts")]
+    public async Task<ActionResult<IEnumerable<AlumniDto>>> GetAlumniPosts()
     {
         var alumniList = await _context.AlumniPosts
+            .Where(a => !a.IsEventPost.Value) // Moved Where before Select
             .OrderByDescending(a => a.Date)
             .Select(a => new AlumniDto
             {
@@ -70,6 +72,26 @@ public class AlumniController : ControllerBase
 
         return Ok(alumniList);
     }
+
+    [HttpGet("events")]
+    public async Task<ActionResult<IEnumerable<AlumniDto>>> GetAlumniEvents()
+    {
+        var alumniList = await _context.AlumniPosts
+            .Where(a => a.IsEventPost.Value) // Moved Where before Select
+            .OrderByDescending(a => a.Date)
+            .Select(a => new AlumniDto
+            {
+                Title = a.Title,
+                Description = a.Description,
+                Date = a.Date,
+                ImageUrl = $"/api/alumni/{a.Id}/image",
+                Id = a.Id
+            })
+            .ToListAsync();
+
+        return Ok(alumniList);
+    }
+
 
     [HttpGet("{id}/image")]
     public async Task<IActionResult> GetAlumniImage(int id)

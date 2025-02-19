@@ -19,7 +19,7 @@ public class ContactController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<ContactMessageDto>>> GetMessages()
     {
-        var messages = await _context.ContactMessages.ToListAsync();
+        var messages = await _context.ContactMessages.OrderByDescending(a => a.SentDate).ToListAsync();
         return messages.Select(m => new ContactMessageDto
         {
             Name = m.Name,

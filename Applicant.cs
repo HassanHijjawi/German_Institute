@@ -56,4 +56,7 @@ public class Applicant
     public byte[] PassportScan { get; set; }
 
     public byte[] CV { get; set; }
+
+    public DateTime DateofApplication { get; set; } = DateTime.UtcNow;
+
 }

@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+var connectionString = "server=localhost;port=3306;database=german_institute;uid=root;password=root";
 
 if (string.IsNullOrEmpty(connectionString))
 {

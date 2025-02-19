@@ -6,4 +6,6 @@
     public IFormFile Image { get; set; }
     public string? ImageUrl { get; set; }
     public int? Id { get; set; }
+    public bool? IsEventPost { get; set; }
+
 }

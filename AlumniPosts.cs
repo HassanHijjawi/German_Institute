@@ -22,4 +22,6 @@ public class AlumniPosts
 
     [Required]
     public string ImageExtension { get; set; }
+    [Required]
+    public bool? IsEventPost { get; set; }
 }
